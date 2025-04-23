@@ -5,9 +5,18 @@
   "bin": {
     "export-icons": "cli.js"
   },
+  "standard-version": {
+    "tagPrefix": "",
+    "skip": {
+      "tag": false
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "export-icons": "export-icons"
+    "export-icons": "export-icons",
+    "convert": "node scripts/convert-to-react.js",
+    "build": "npm run convert && tsup",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -32,6 +41,13 @@
     "minimist": "^1.2.5",
     "mkdirp": "^0.5.1",
     "ora": "^3.4.0",
-    "prompts": "^2.1.0"
+    "prompts": "^2.1.0",
+    "react": "^19.1.0"
+  },
+  "devDependencies": {
+    "@svgr/core": "^8.1.0",
+    "standard-version": "^9.5.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
   }
 }
