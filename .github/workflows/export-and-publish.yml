@@ -35,8 +35,7 @@ jobs:
       - name: Export icons from Figma
         run: npx figma-export-icons export
 
-      # Optional: build or publish step
-      # - name: Build or publish icons (if needed)
-      #   run: npm run build && npm publish
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Build or publish icons (if needed)
+        run: npm run build && npm publish
+        env:
+           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
