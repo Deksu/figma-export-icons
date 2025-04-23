@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const svgr = require('@svgr/core').default;
+const { transform } = require('@svgr/core');
 
 const inputDir = path.resolve(__dirname, '../assets/svg/icons');
 const outputDir = path.resolve(__dirname, '../src/icons');
@@ -17,12 +17,11 @@ if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
     const componentName = path.basename(file, '.svg')
       .replace(/(^\w|-\w)/g, s => s.replace('-', '').toUpperCase());
 
-    const jsxCode = await svgr(svgCode, { icon: true }, { componentName });
+    const jsxCode = await transform(svgCode, { icon: true }, { componentName });
 
     fs.writeFileSync(path.join(outputDir, `${componentName}.tsx`), jsxCode);
   }
 
-  // ✅ This block must be INSIDE the async function
   const exportLines = files.map(file => {
     const name = path.basename(file, '.svg')
       .replace(/(^\w|-\w)/g, s => s.replace('-', '').toUpperCase());
@@ -30,6 +29,7 @@ if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
   });
 
   fs.writeFileSync(path.join(outputDir, 'index.ts'), exportLines.join('\n'));
+
   console.log('✅ SVGs converted to React components.');
   console.log('✅ Generated src/icons/index.ts');
 })();
