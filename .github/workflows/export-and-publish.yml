@@ -1,0 +1,42 @@
+name: Export Icons from Figma and Publish
+
+on:
+  workflow_dispatch:  # Allows manual trigger
+  schedule:
+    - cron: '0 6 * * *'  # Optional: daily at 6 AM UTC
+
+jobs:
+  export-icons:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create icons-config.json
+        run: |
+          echo '{
+            "figmaPersonalToken": "${{ secrets.FIGMA_PERSONAL_TOKEN }}",
+            "fileId": "${{ secrets.FIGMA_FILE_ID }}",
+            "page": "Icons",
+            "frame": "Icon Set",
+            "iconsPath": "assets/svg/icons",
+            "removeFromName": "Icon="
+          }' > icons-config.json
+
+      - name: Export icons from Figma
+        run: npx figma-export-icons export
+
+      # Optional: build or publish step
+      # - name: Build or publish icons (if needed)
+      #   run: npm run build && npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
