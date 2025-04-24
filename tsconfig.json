@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "declaration": true, // Make sure declaration files are enabled
+    "declarationDir": "dist/types",  // Output directory for d.ts files
+    "skipLibCheck": true, // This avoids issues with third-party libraries
+    "outDir": "dist", // Output folder for compiled files
+    "rootDir": "src" // Source folder
+  },
+  "include": ["src/**/*"], // Include all your source files
+  "exclude": ["node_modules", "dist"] // Exclude dist and node_modules
+}
